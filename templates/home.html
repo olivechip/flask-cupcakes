@@ -6,4 +6,28 @@ Home Page
 
 {% block content %}
 <h1>Cupcakes</h1>
+<ul id="cc_list">
+</ul>
+
+<hr>
+
+<h2>Add Cupcake</h2>
+<form>
+    <div>
+        Flavor: <input type="text" id="flavor">
+    </div>
+    <div>
+        Size: 
+        <input type="radio" name="size" value="small" id="small"><label for="small" class="for">Small</label>
+        <input type="radio" name="size" value="medium" id="medium"><label for="medium" class="for">Medium</label>
+        <input type="radio" name="size" value="large" id="large"><label for="large" class="for">Large</label>
+    </div>
+    <div>
+        Rating: <input type="range" min="0.0" max="5.0" step="0.1" id="rating">
+    </div>
+    <div>
+        Image URL: <input type="url" id="image">
+    </div>
+    <button>Submit</button>
+</form>
 {% endblock %}
