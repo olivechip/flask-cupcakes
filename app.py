@@ -26,7 +26,7 @@ def list_cupcakes():
     return jsonify(cupcakes=serialized)
 
 @app.route('/api/cupcakes/<int:cupcake_id>')
-def cupcake_detail(cupcake_id):
+def cupcake_details(cupcake_id):
     """Returns data on a single cupcake in JSON format"""
     cupcake = Cupcake.query.get_or_404(cupcake_id)
     serialized = [cupcake.serialize_cupcake()]
@@ -42,7 +42,7 @@ def create_cupcake():
     db.session.commit()
 
     serialized = [cupcake.serialize_cupcake()]
-    return jsonify(cupcake=serialized)
+    return (jsonify(cupcake=serialized), 201)
 
 @app.route('/api/cupcakes/<int:cupcake_id>', methods=['PATCH'])
 def update_cupcake(cupcake_id):
