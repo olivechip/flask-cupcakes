@@ -7,6 +7,25 @@ function get_cupcake_html(cupcake){
     `;
 }
 
+function get_cupcake_form_data(){
+    let data;
+    if ($('#image').val() == ""){
+        data = {
+            "flavor": $('#flavor').val(),
+            "size": $("input[name='size']:checked").val(),
+            "rating": $('#rating').val(),
+        }
+    } else {
+        data = {
+        "flavor": $('#flavor').val(),
+        "size": $("input[name='size']:checked").val(),
+        "rating": $('#rating').val(),
+        "image": $('#image').val()
+        }
+    }
+    return data;
+}
+
 async function show_cupcakes(){
     const res = await axios.get("/api/cupcakes");
     const cc = res.data.cupcakes;
@@ -17,17 +36,13 @@ async function show_cupcakes(){
 }
 
 async function add_cupcake(){
-    data = {
-        "flavor": $('#flavor').val(),
-        "size": $("input[name*='size'").val(),
-        "rating": $('#rating').val(),
-        "image": $('#image').val()
-    }
-    console.log(data)
+    data = get_cupcake_form_data()
     const res = await axios.post("/api/cupcakes", data);
-    const cc = res.data.cupcakes;
-    // console.log(cc);
-    // alert('created');
+    const cupcake_obj = res.data.cupcake[0];
+
+    new_cc = get_cupcake_html(cupcake_obj);
+    console.log(cupcake_obj)
+    $("#cc_list").append(new_cc);
 }
 
 $(show_cupcakes);
@@ -35,5 +50,6 @@ $(show_cupcakes);
 $('form').on('submit', function(e){
     e.preventDefault();
     add_cupcake();
+    $(this).trigger('reset');
 })
 

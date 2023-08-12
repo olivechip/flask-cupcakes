@@ -84,6 +84,10 @@ class CupcakeViewsTestCase(TestCase):
                 ]
             })
 
+            bad_url = f"/api/cupcakes/0"
+            bad_resp = client.get(bad_url)
+            self.assertEqual(bad_resp.status_code, 404)
+
     def test_create_cupcake(self):
         with app.test_client() as client:
             url = "/api/cupcakes"
@@ -125,6 +129,10 @@ class CupcakeViewsTestCase(TestCase):
                 }]
             })
 
+            bad_url = f"/api/cupcakes/0"
+            bad_resp = client.get(bad_url)
+            self.assertEqual(bad_resp.status_code, 404)
+
     def test_delete_cupcake(self):
         with app.test_client() as client:
             url = f"/api/cupcakes/{self.cupcake.id}"
@@ -133,3 +141,7 @@ class CupcakeViewsTestCase(TestCase):
 
             data = resp.json
             self.assertIn("msg", data)
+
+            bad_url = f"/api/cupcakes/0"
+            bad_resp = client.get(bad_url)
+            self.assertEqual(bad_resp.status_code, 404)
