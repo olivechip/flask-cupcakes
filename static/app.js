@@ -41,7 +41,6 @@ async function add_cupcake(){
     const cupcake_obj = res.data.cupcake[0];
 
     new_cc = get_cupcake_html(cupcake_obj);
-    console.log(cupcake_obj)
     $("#cc_list").append(new_cc);
 }
 
