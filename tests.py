@@ -83,7 +83,9 @@ class CupcakeViewsTestCase(TestCase):
                     }
                 ]
             })
-
+    
+    def test_cupcake_details_404(self):
+        with app.test_client() as client:
             bad_url = f"/api/cupcakes/0"
             bad_resp = client.get(bad_url)
             self.assertEqual(bad_resp.status_code, 404)
@@ -129,8 +131,10 @@ class CupcakeViewsTestCase(TestCase):
                 }]
             })
 
+    def test_update_cupcake_404(self):
+        with app.test_client() as client:
             bad_url = f"/api/cupcakes/0"
-            bad_resp = client.get(bad_url)
+            bad_resp = client.patch(bad_url, json=CUPCAKE_DATA_2)
             self.assertEqual(bad_resp.status_code, 404)
 
     def test_delete_cupcake(self):
@@ -144,4 +148,10 @@ class CupcakeViewsTestCase(TestCase):
 
             bad_url = f"/api/cupcakes/0"
             bad_resp = client.get(bad_url)
+            self.assertEqual(bad_resp.status_code, 404)
+
+    def test_delete_cupcake_404(self):
+        with app.test_client() as client:
+            bad_url = f"/api/cupcakes/0"
+            bad_resp = client.delete(bad_url)
             self.assertEqual(bad_resp.status_code, 404)
